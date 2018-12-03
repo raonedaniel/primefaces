@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ui:composition template="template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a="http://www.ambientinformatica.com.br/jsf2"
+	xmlns:p="http://primefaces.org/ui">
+	<ui:define name="corpo">
+
+		<p:panel header="Tela de Agendamento" id="panel">
+			<h:panelGrid columns="2">
+				<h:outputText value="Nome do Cliente"></h:outputText>
+				<p:inputText value="#{ContatoControl.contato.nome }"></p:inputText>
+				<h:outputText value="Nome do Filme"></h:outputText>
+				<p:inputText value="#{ContatoControl.contato.nomeDoFilme }"></p:inputText>
+				<h:outputText value="Sala"></h:outputText>
+				<p:inputText value="#{ContatoControl.contato.sala }"></p:inputText>
+				<h:outputText value="Dia e horário"></h:outputText>
+				<p:inputText value="#{ContatoControl.contato.diaHorario }"></p:inputText>
+				<h:outputText value="Forma de Pagamento"></h:outputText>
+				<p:inputText value="#{ContatoControl.contato.formaDePagamento }"></p:inputText>
+				<h:outputText value="Lanche"></h:outputText>
+				<p:inputText value="#{ContatoControl.contato.lanche }"></p:inputText>
+				<h:outputText value="Poltrona"></h:outputText>
+				<p:inputText value="#{ContatoControl.contato.poltrona }"></p:inputText>
+				<p:commandButton actionListener="#{ContatoControl.confirmar }" value="Confirmar Agendamento" update="contatos, panel" ajax="false"/>
+			</h:panelGrid>
+		</p:panel>
+		
+		<p:dataTable id="contatos" value="#{ContatoControl.contatos }" var="cont"  width="100%" emptyMessage="Sem registros" >
+			<f:facet name="header">
+				<h:outputText value="tabela"></h:outputText>
+			</f:facet>
+			<p:column sortBy="#{cont.nome }">
+				<f:facet name="header">
+					<h:outputText value="NOME"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{cont.nome }"></h:outputText>
+			</p:column>	
+			<p:column sortBy="#{cont.nomeDoFilme }">
+				<f:facet name="header">
+					<h:outputText value="NOME DO FILME"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{cont.nomeDoFilme }"></h:outputText>
+			</p:column>	
+			<p:column sortBy="#{cont.sala }">
+				<f:facet name="header">
+					<h:outputText value="SALA"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{cont.sala }"></h:outputText>
+			</p:column>	
+			<p:column sortBy="#{cont.diaHorario }">
+				<f:facet name="header">
+					<h:outputText value="DIA E HORÁRIO"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{cont.diaHorario }"></h:outputText>
+			</p:column>	
+			<p:column sortBy="#{cont.formaDePagamento }">
+				<f:facet name="header">
+					<h:outputText value="FORMA DE PAGAMENTO"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{cont.formaDePagamento }"></h:outputText>
+			</p:column>	
+			<p:column sortBy="#{cont.lanche }">
+				<f:facet name="header">
+					<h:outputText value="LANCHE"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{cont.lanche }"></h:outputText>
+			</p:column>
+			<p:column sortBy="#{cont.poltrona }">
+				<f:facet name="header">
+					<h:outputText value="POLTRONA"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{cont.poltrona }"></h:outputText>
+			</p:column>	
+			<!-- <a:field label="Cpf:" spaceLeft="5px">
+				<p:inputMask value="#{ContatoControl.contato.cpf }"
+					mask="999.999.999-99" style="width: 130px">
+				</p:inputMask>
+			</a:field>  -->
+			<p:column style="width:3%; text-align:center" headerText="Editar">
+			<p:commandButton icon="ui-icon-pencil"
+				actionListener="#{ContatoControl.editar}" ajax="false"
+				title="Clique aqui para editar o contato."
+				update=":formCorpo:panel1">
+				<f:param value="#{cont}" name="contato" id="contatoe"></f:param>
+			</p:commandButton>
+		</p:column>
+		<p:column style="width:3%; text-align:center" headerText="Excluir">
+			<p:commandButton icon="ui-icon-trash"
+				actionListener="#{ContatoControl.excluir}" ajax="false"
+				title="Clique aqui para excluir o contato."
+				update=":formCorpo:contatos">
+				<f:param value="#{cont}" name="contato" id="contato"></f:param>
+			</p:commandButton>
+		</p:column>
+		</p:dataTable>
+
+	</ui:define>
+</ui:composition>
