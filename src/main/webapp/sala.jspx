@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ui:composition template="template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a="http://www.ambientinformatica.com.br/jsf2"
+	xmlns:p="http://primefaces.org/ui">
+	<ui:define name="corpo">
+
+		<p:panel header="Cadastro de Salas" id="panel">
+			<h:panelGrid columns="2">
+				<h:outputText value="Número da Sala"></h:outputText>
+				<p:inputText value="#{salaController.sala.numero }"></p:inputText>
+				<h:outputText value="Quantidade de lugares"></h:outputText>
+				<p:inputText value="#{salaController.sala.quantidadeDeLugares }"></p:inputText>
+				<p:commandButton actionListener="#{salaController.confirmar }" value="Confirmar" update="salas panel" ajax="false"/>
+			</h:panelGrid>
+		</p:panel>
+		
+		<p:dataTable id="contatos" value="#{salaController.salas }" var="s"  width="100%" emptyMessage="Sem registros" >
+			<f:facet name="header">
+				<h:outputText value="tabela"></h:outputText>
+			</f:facet>
+			<p:column sortBy="#{s.numero }">
+				<f:facet name="header">
+					<h:outputText value="NÚMERO"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{s.numero }"></h:outputText>
+			</p:column>	
+			<p:column sortBy="#{s.quantidadeDeLugares }">
+				<f:facet name="header">
+					<h:outputText value="QUANTIDADE DE LUGARES"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{s.quantidadeDeLugares }"></h:outputText>
+			</p:column>	
+			<p:column sortBy="#{s.secoes }">
+				<f:facet name="header">
+					<h:outputText value="SEÇÕES"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{s.secoes }"></h:outputText>
+			</p:column>	
+			<p:column style="width:3%; text-align:center" headerText="Editar">
+			<p:commandButton icon="ui-icon-pencil"
+				actionListener="#{salaController.editar}" ajax="false"
+				title="Clique aqui para editar uma sala."
+				update=":formCorpo:panel1">
+				<f:param value="#{s}" name="sala" id="salae"></f:param>
+			</p:commandButton>
+		</p:column>
+		<p:column style="width:3%; text-align:center" headerText="Excluir">
+			<p:commandButton icon="ui-icon-trash"
+				actionListener="#{salaController.excluir}" ajax="false"
+				title="Clique aqui para excluir uma sala."
+				update=":formCorpo:salas">
+				<f:param value="#{s}" name="sala" id="sala"></f:param>
+			</p:commandButton>
+		</p:column>
+		</p:dataTable>
+
+	</ui:define>
+</ui:composition>

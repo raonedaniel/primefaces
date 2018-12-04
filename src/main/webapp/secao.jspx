@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ui:composition template="template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a="http://www.ambientinformatica.com.br/jsf2"
+	xmlns:p="http://primefaces.org/ui">
+	<ui:define name="corpo">
+
+		<p:panel header="Agendamento de Seções" id="panel">
+			<h:panelGrid columns="2">
+				<h:outputText value="Início"></h:outputText>
+				<p:inputText value="#{secaoController.secao.horaDeInicio }"></p:inputText>
+				<h:outputText value="Sala"></h:outputText>
+				<p:inputText value="#{secaoController.secao.fkSala.numero }"></p:inputText>
+				<h:outputText value="Filme"></h:outputText>
+				<p:inputText value="#{secaoController.secao.fkFilme.nome }"></p:inputText>
+				<h:outputText value="Ingressos"></h:outputText>
+				<p:inputText value="#{secaoController.secao.ingressos.fkUsuario.nome }"></p:inputText>
+				<p:commandButton actionListener="#{secaoController.confirmar }" value="Confirmar" update="secoes, panel" ajax="false"/>
+			</h:panelGrid>
+		</p:panel>
+		
+		<p:dataTable id="contatos" value="#{secaoController.secoes }" var="s"  width="100%" emptyMessage="Sem registros" >
+			<f:facet name="header">
+				<h:outputText value="tabela"></h:outputText>
+			</f:facet>
+			<p:column sortBy="#{s.horaDeInicio }">
+				<f:facet name="header">
+					<h:outputText value="INÍCIO"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{s.horaDeInicio }"></h:outputText>
+			</p:column>	
+			<p:column sortBy="#{s.fkSala.numero }">
+				<f:facet name="header">
+					<h:outputText value="SALA"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{s.fkSala.numero }"></h:outputText>
+			</p:column>	
+			<p:column sortBy="#{s.fkFilme.nome }">
+				<f:facet name="header">
+					<h:outputText value="FILME"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{s.fkFilme.nome }"></h:outputText>
+			</p:column>	
+			<p:column sortBy="#{s.ingressos.fkUsuario.nome }">
+				<f:facet name="header">
+					<h:outputText value="INGRESSOS"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{s.ingressos.fkUsuario.nome }"></h:outputText>
+			</p:column>	
+			<p:column style="width:3%; text-align:center" headerText="Editar">
+			<p:commandButton icon="ui-icon-pencil"
+				actionListener="#{secaoController.editar}" ajax="false"
+				title="Clique aqui para editar uma seção."
+				update=":formCorpo:panel1">
+				<f:param value="#{s}" name="secao" id="secaoe"></f:param>
+			</p:commandButton>
+		</p:column>
+		<p:column style="width:3%; text-align:center" headerText="Excluir">
+			<p:commandButton icon="ui-icon-trash"
+				actionListener="#{secaoController.excluir}" ajax="false"
+				title="Clique aqui para excluir uma seção."
+				update=":formCorpo:ingre">
+				<f:param value="#{s}" name="secao" id="secao"></f:param>
+			</p:commandButton>
+		</p:column>
+		</p:dataTable>
+
+	</ui:define>
+</ui:composition>
