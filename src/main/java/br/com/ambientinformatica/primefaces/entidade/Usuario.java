@@ -10,12 +10,9 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
@@ -32,11 +29,7 @@ import br.com.ambientinformatica.util.UtilHash.Algoritimo;
 @Entity
 public class Usuario extends Entidade{
 
-	@Id
-	@GeneratedValue(generator = "usuario_seq", strategy = GenerationType.SEQUENCE)
-	@SequenceGenerator(name = "usuario_seq", sequenceName = "usuario_seq", allocationSize = 1, initialValue = 1)
-   private Integer idUsuario;
-   
+   @Id
    @Column(nullable=false, unique = true)
    @NotNull(message="Login do usuário é obrigatório", groups=AmbientValidator.class)
    @NotEmpty(message="Login do usuário é obrigatório", groups=AmbientValidator.class)
